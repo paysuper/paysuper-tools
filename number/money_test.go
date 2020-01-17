@@ -29,6 +29,11 @@ func (suite *ToolsTestSuite) Test_ToPrecise() {
 	assert.EqualValues(suite.T(), 10.123457, ToPrecise(10.123456789))
 }
 
+func (suite *ToolsTestSuite) Test_GetPercentPartFromAmount() {
+	assert.EqualValues(suite.T(), 20, GetPercentPartFromAmount(120, 0.2))
+	assert.EqualValues(suite.T(), 3, GetPercentPartFromAmount(33, 0.1))
+}
+
 func (suite *ToolsTestSuite) Test_FormatAmount() {
 	assert.EqualValues(suite.T(), 10.12, FormatAmount(10.12))
 	assert.EqualValues(suite.T(), 10.12, FormatAmount(10.123))
