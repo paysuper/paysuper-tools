@@ -24,13 +24,18 @@ type contextKey struct {
 	name string
 }
 
-func NewLoggedHttpClient(logger *zap.SugaredLogger) *http.Client {
+func NewLoggedHttpClient(logger *zap.SugaredLogger, params ...int) *http.Client {
+	timeout := defaultHttpClientTimeout
+	if len(params) > 0 {
+		timeout = params[0]
+	}
+
 	return &http.Client{
 		Transport: &Transport{
 			Logger:            logger,
 			ResponseBodyLimit: defaultResponseBodyLimit,
 		},
-		Timeout: time.Duration(defaultHttpClientTimeout * time.Second),
+		Timeout: time.Duration(time.Duration(timeout) * time.Second),
 	}
 }
 
